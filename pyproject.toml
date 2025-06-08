@@ -1,0 +1,121 @@
+[project]
+name = "pagerduty-mcp"
+version = "0.2.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.12,<3.13"
+dependencies = [
+    "arize-phoenix-otel>=0.9.2",
+    "langchain>=0.3.25",
+    "langchain-aws>=0.2.23",
+    "langchain-mcp-adapters>=0.0.11",
+    "langchain-openai>=0.3.16",
+    "langgraph>=0.4.3",
+    "mcp[cli]>=1.8.0",
+    "openinference-instrumentation-langchain>=0.1.42",
+    "pagerduty>=2.0.0",
+    "ruff>=0.11.10",
+]
+
+[tool.pyright]
+include = ["app"]
+exclude = []
+defineConstant = { DEBUG = true }
+reportMissingImports = "error"
+reportMissingTypeStubs = false
+pythonVersion = "3.12"
+executionEnvironments = []
+
+[tool.ruff]
+# extends default list https://docs.astral.sh/ruff/settings/#exclude
+# removes common issues
+extend-exclude = [
+    ".ipynb_checkpoints",
+    ".pytest_cache",
+    ".venv",
+    ".vscode",
+    "build",
+    "site-packages",
+]
+
+# if used and desired add this to the above extend include
+# extend-include = ["*.ipynb"]
+
+line-length = 120
+
+[tool.ruff.lint]
+# see https://docs.astral.sh/ruff/rules/ for information about rules
+select = [
+    # These are standard rules / align with PagerDuty python standards
+    "E",   # pycodestyle - Error
+    "F",   # pyflakes
+    "B",   # flake8-bugbear
+    "UP",  # pyupgrade
+    "SIM", # flake8-simplify
+    "I",   # isort
+    "D",   # docstrings
+    # These are less common rules but  there is a strong case for using them
+    # There might be some duplication across rules but they should not be
+    # contradictory
+    "W",     # pycodestyle - Warning
+    "C4",    # flake8-comprehensions
+    "ASYNC", # flake8-async
+    "A",     # flake8-builtins
+    "NPY",   # numpy
+    "RUF",   # ruff specific
+    "BLE",   # blind-except
+    "RET",   # flake8-return
+    "FBT",   # flake8-boolean-trap
+    "ISC",   # flake8-implicit-string-concatenation
+    "PIE",   # flake8-pie
+    # These rules are optional and should be applied on a team-by-team basis
+    # "PT" # flake8-pytest-style - if using pytest
+    # "S", # flake8-bandit - this duplicates a lot of the work in Snyk
+    # "PD", # pandas-vet - quite opinionated, not in a bad way but takes some getting used to.  Only applicable to DS/MLE
+    # "N"  # pep8-naming - enforces PEP8 naming, can be overly strict
+]
+
+# The following rule has been specifically rejected
+# "PL" - This is overly restrictive, if used will require finer grained control
+ignore = [
+    # conflicts with ruff format
+    "ISC001",
+    # Do not require docstrings
+    "D100",
+    "D101",
+    "D102",
+    "D103",
+    "D104",
+    "D105",
+    "D106",
+    "D107",
+]
+
+# Allow fix for all enabled rules (when `--fix`) is provided.
+fixable = ["ALL"]
+unfixable = ["B"]
+
+# Allow unused variables when underscore-prefixed.
+dummy-variable-rgx = "^(_+|(_+[a-zA-Z0-9_]*[a-zA-Z0-9]+?))$"
+
+[tool.ruff.lint.per-file-ignores]
+"**/tests/*" = ['S101'] # allow use of assert in tests
+
+[tool.ruff.lint.pydocstyle]
+convention = "google"        # see python standards for discussion on docstyle
+ignore-var-parameters = true
+
+[build-system]
+requires = ["setuptools"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+where = ["."]
+
+[dependency-groups]
+dev = [
+    "deepdiff>=8.5.0",
+    "ipykernel>=6.29.5",
+    "pyright>=1.1.401",
+    "pytest>=8.3.5",
+]
