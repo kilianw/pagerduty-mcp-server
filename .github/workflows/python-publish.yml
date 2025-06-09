@@ -76,7 +76,7 @@ jobs:
           path: dist/
 
       - name: Publish release distributions to PyPi
-        run: uv publish --publish-url https://pypi.org/legacy/
+        run: uv publish --publish-url https://pypi.org/legacy/ --token ${{ secrets.PYPI_TOKEN }}
 
   pypi-publish-testing:
     if: ${{ inputs.environment == 'Testing' }}
@@ -103,7 +103,7 @@ jobs:
           path: dist/
 
       - name: Publish release distributions to PyPi
-        run: uv publish --publish-url https://test.pypi.org/legacy/
+        run: uv publish --publish-url https://test.pypi.org/legacy/ --token ${{ secrets.PYPI_TOKEN }}
 
 
       
