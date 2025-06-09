@@ -3,10 +3,12 @@
 import argparse
 import asyncio
 import json
+import logging
 import os
 from collections.abc import Sequence
 from typing import Any
 
+from dotenv import load_dotenv
 from mcp.server.fastmcp import FastMCP
 from openai import OpenAI
 from openai.types.chat import (
@@ -21,7 +23,17 @@ from pagerduty_mcp.tools import read_tools, write_tools
 from tests.evals.competency_test import CompetencyTest
 from tests.evals.mcp_tool_tracer import MockedMCPServer
 from tests.evals.test_incidents import INCIDENT_COMPETENCY_TESTS
+from tests.evals.test_teams import TEAMS_COMPETENCY_TESTS
 
+test_mapping = {
+    "incidents": INCIDENT_COMPETENCY_TESTS,
+    "teams": TEAMS_COMPETENCY_TESTS,
+    "all": INCIDENT_COMPETENCY_TESTS + TEAMS_COMPETENCY_TESTS,
+}
+
+load_dotenv()
+
+logging.getLogger().setLevel(logging.WARNING)
 
 class TestResult(BaseModel):
     """Model for test results."""
@@ -142,6 +154,7 @@ class TestAgent:
 
         try:
             query = test_case.query
+            print("-" * 40)
             print(f"Testing query: {query}")
 
             # Make actual call to GPT with function calling
@@ -288,14 +301,14 @@ def main():
     parser = argparse.ArgumentParser(description="Test LLM competency with MCP tools")
     parser.add_argument("--llm", choices=["gpt"], default="gpt", help="LLM provider to use for testing")
     parser.add_argument(
-        "--domain", choices=["all", "incidents", "schedules", "services"], default="incidents", help="Domain to test"
+        "--domain", choices=["all", "incidents", "teams", "services"], default="all", help="Domain to test"
     )
     parser.add_argument("--output", type=str, help="Output file for test report")
 
     args = parser.parse_args()
 
     # Select test cases based on domain
-    test_cases = INCIDENT_COMPETENCY_TESTS if args.domain in ("incidents", "all") else []
+    test_cases = test_mapping.get(args.domain, [])
 
     if not test_cases:
         print(f"No test cases available for domain: {args.domain}")

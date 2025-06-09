@@ -109,6 +109,7 @@ where = ["."]
 dev = [
     "deepdiff>=8.5.0",
     "ipykernel>=6.29.5",
+    "openai>=1.84.0",
     "pyright>=1.1.401",
     "pytest>=8.3.5",
 ]

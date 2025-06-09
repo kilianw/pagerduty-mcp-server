@@ -8,7 +8,6 @@ class IncidentCompetencyTest(CompetencyTest):
 
     def register_mock_responses(self, mcp: MockedMCPServer) -> None:
         """Register minimal realistic responses to enable multi-turn conversations."""
-        # Just enough data for GPT to continue conversations
         mcp.register_mock_response(
             "list_teams", lambda params: True, {"response": [{"id": "TEAM123", "name": "Dev Team"}]}
         )
