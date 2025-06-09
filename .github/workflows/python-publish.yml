@@ -15,6 +15,13 @@ on:
         description: 'Release Version'
         required: true
         type: string
+      environment:
+        description: 'PyPi Environment'
+        required: true
+        type: choice
+        options: 
+        - production
+        - testing
 
 permissions:
   contents: read
@@ -44,7 +51,7 @@ jobs:
           name: release-dists
           path: dist/
 
-  pypi-publish:
+  pypi-publish-production:
     runs-on: ubuntu-latest
     needs:
       - release-build
@@ -55,10 +62,21 @@ jobs:
     # Dedicated environments with protections for publishing are strongly recommended.
     # For more information, see: https://docs.github.com/en/actions/deployment/targeting-different-environments/using-environments-for-deployment#deployment-protection-rules
     environment:
-      name: pypi\
-      url: https://pypi.org/p/pagerduty-mcp-server/${{ inputs.release }}
+      name: pypi
 
     steps:
+      - name: Check inputs and set env var
+        env:
+          URL: ${{ inputs.environment }}
+        run: |
+          local PUBLISH_ENDPOINT=''
+          if [[ $ENVIRONMENT == 'production' ]]; then
+            URL='https://pypi.org/p/pagerduty-mcp-server'
+          elif [[ $ENVIRONMENT == 'testing' ]]; then
+            URL='https://test.pypi.org/p/pagerduty-mcp-server'
+          fi
+          echo "PUBLISH_ENDPOINT=$URL" >> $GITHUB_ENV
+    
       - name: astral-sh/setup-uv
         uses: astral-sh/setup-uv@v6.1.0
         
@@ -68,10 +86,8 @@ jobs:
           name: release-dists
           path: dist/
 
-      - name: Publish release distributions to PyPI
-        uses: pypa/gh-action-pypi-publish@release/v1
-        with:
-          packages-dir: dist/
-          password: ${{ secrets.PYPI_TOKEN }}
+      - name: Publish release distributions to PyPi
+        run: uv publish --publish-url ${{ env.PUBLISH_ENDPOINT }}
+
 
       
