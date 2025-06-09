@@ -76,7 +76,7 @@ jobs:
           path: dist/
 
       - name: Publish release distributions to PyPi
-        run: uv publish --publish-url https://pypi.org/project/pagerduty-mcp-server/
+        run: uv publish --publish-url https://pypi.org/legacy/
 
   pypi-publish-testing:
     if: ${{ inputs.environment == 'Testing' }}
@@ -103,7 +103,7 @@ jobs:
           path: dist/
 
       - name: Publish release distributions to PyPi
-        run: uv publish --publish-url https://test.pypi.org/project/pagerduty-mcp-server/
+        run: uv publish --publish-url https://test.pypi.org/legacy/
 
 
       
