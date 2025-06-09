@@ -38,7 +38,9 @@ jobs:
           python-version: "3.x"
 
       - name: astral-sh/setup-uv
-        uses: astral-sh/setup-uv@v6.1.0      
+        uses: astral-sh/setup-uv@v6.1.0
+        with:
+          python-version-file: "pyproject.toml"
 
       - name: Build release distributions
         run: |
@@ -68,6 +70,8 @@ jobs:
     steps:
       - name: astral-sh/setup-uv
         uses: astral-sh/setup-uv@v6.1.0
+        with:
+          python-version-file: "pyproject.toml"
         
       - name: Retrieve release distributions
         uses: actions/download-artifact@v4
@@ -95,6 +99,8 @@ jobs:
     steps:
       - name: astral-sh/setup-uv
         uses: astral-sh/setup-uv@v6.1.0
+        with:
+          python-version-file: "pyproject.toml"
         
       - name: Retrieve release distributions
         uses: actions/download-artifact@v4
