@@ -20,8 +20,8 @@ on:
         required: true
         type: choice
         options: 
-        - production
-        - testing
+        - Testing
+        - Production
 
 permissions:
   contents: read
@@ -52,6 +52,7 @@ jobs:
           path: dist/
 
   pypi-publish-production:
+    if: ${{ inputs.environment == 'Production' }}
     runs-on: ubuntu-latest
     needs:
       - release-build
@@ -63,20 +64,9 @@ jobs:
     # For more information, see: https://docs.github.com/en/actions/deployment/targeting-different-environments/using-environments-for-deployment#deployment-protection-rules
     environment:
       name: pypi
+      url: https://pypi.org/p/pagerduty-mcp-server
 
     steps:
-      - name: Check inputs and set env var
-        env:
-          URL: ${{ inputs.environment }}
-        run: |
-          local PUBLISH_ENDPOINT=''
-          if [[ $ENVIRONMENT == 'production' ]]; then
-            URL='https://pypi.org/p/pagerduty-mcp-server'
-          elif [[ $ENVIRONMENT == 'testing' ]]; then
-            URL='https://test.pypi.org/p/pagerduty-mcp-server'
-          fi
-          echo "PUBLISH_ENDPOINT=$URL" >> $GITHUB_ENV
-    
       - name: astral-sh/setup-uv
         uses: astral-sh/setup-uv@v6.1.0
         
@@ -87,7 +77,35 @@ jobs:
           path: dist/
 
       - name: Publish release distributions to PyPi
-        run: uv publish --publish-url ${{ env.PUBLISH_ENDPOINT }}
+        run: uv publish --publish-url ${{ env.url }}
+
+  pypi-publish-testing:
+    if: ${{ inputs.environment == 'Testing' }}
+    runs-on: ubuntu-latest
+    needs:
+      - release-build
+    permissions:
+      # IMPORTANT: this permission is mandatory for trusted publishing
+      id-token: write
+
+    # Dedicated environments with protections for publishing are strongly recommended.
+    # For more information, see: https://docs.github.com/en/actions/deployment/targeting-different-environments/using-environments-for-deployment#deployment-protection-rules
+    environment:
+      name: pypi
+      url: https://test.pypi.org/p/pagerduty-mcp-server
+
+    steps:
+      - name: astral-sh/setup-uv
+        uses: astral-sh/setup-uv@v6.1.0
+        
+      - name: Retrieve release distributions
+        uses: actions/download-artifact@v4
+        with:
+          name: release-dists
+          path: dist/
+
+      - name: Publish release distributions to PyPi
+        run: uv publish --publish-url ${{ env.url }}
 
 
       
