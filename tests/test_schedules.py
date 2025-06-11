@@ -299,10 +299,10 @@ class TestScheduleTools(unittest.TestCase):
         self.mock_client.rpost.return_value = self.sample_override_response
 
         # Create override request
-        user_ref = UserReference(id="USER789", summary="Holiday Coverage")
+        user_ref = UserReference(id="USER789", summary="Test User")
         override = Override(
-            start=datetime(2023, 12, 25),
-            end=datetime(2023, 12, 26),
+            start=datetime(2024, 12, 25),
+            end=datetime(2024, 12, 26),
             user=user_ref,
         )
         override_request = ScheduleOverrideCreate(overrides=[override])
@@ -314,8 +314,8 @@ class TestScheduleTools(unittest.TestCase):
 
         # Verify that datetime objects were converted to ISO format
         expected_json = override_request.model_dump()
-        expected_json["overrides"][0]["start"] = "2023-12-25T00:00:00"
-        expected_json["overrides"][0]["end"] = "2023-12-26T00:00:00"
+        expected_json["overrides"][0]["start"] = "2024-12-25T00:00:00"
+        expected_json["overrides"][0]["end"] = "2024-12-26T00:00:00"
 
         self.mock_client.rpost.assert_called_once_with("/schedules/SCHED123/overrides", json=expected_json)
 
@@ -329,17 +329,17 @@ class TestScheduleTools(unittest.TestCase):
         self.mock_client.rpost.return_value = [self.sample_override_response, self.sample_override_response]
 
         # Create override request with multiple overrides
-        user_ref1 = UserReference(id="USER789", summary="Holiday Coverage")
-        user_ref2 = UserReference(id="USER999", summary="Weekend Coverage")
+        user_ref1 = UserReference(id="USER789", summary="Test User 1")
+        user_ref2 = UserReference(id="USER999", summary="Test User 2")
 
         override1 = Override(
-            start=datetime(2023, 12, 25),
-            end=datetime(2023, 12, 26),
+            start=datetime(2024, 12, 25),
+            end=datetime(2024, 12, 26),
             user=user_ref1,
         )
         override2 = Override(
-            start=datetime(2023, 12, 30),
-            end=datetime(2023, 12, 31),
+            start=datetime(2024, 12, 30),
+            end=datetime(2024, 12, 31),
             user=user_ref2,
         )
         override_request = ScheduleOverrideCreate(overrides=[override1, override2])
@@ -351,10 +351,10 @@ class TestScheduleTools(unittest.TestCase):
 
         # Verify that datetime objects were converted to ISO format for both overrides
         expected_json = override_request.model_dump()
-        expected_json["overrides"][0]["start"] = "2023-12-25T00:00:00"
-        expected_json["overrides"][0]["end"] = "2023-12-26T00:00:00"
-        expected_json["overrides"][1]["start"] = "2023-12-30T00:00:00"
-        expected_json["overrides"][1]["end"] = "2023-12-31T00:00:00"
+        expected_json["overrides"][0]["start"] = "2024-12-25T00:00:00"
+        expected_json["overrides"][0]["end"] = "2024-12-26T00:00:00"
+        expected_json["overrides"][1]["start"] = "2024-12-30T00:00:00"
+        expected_json["overrides"][1]["end"] = "2024-12-31T00:00:00"
 
         self.mock_client.rpost.assert_called_once_with("/schedules/SCHED123/overrides", json=expected_json)
 
@@ -371,8 +371,8 @@ class TestScheduleTools(unittest.TestCase):
         # Create override request
         user_ref = UserReference(id="USER789", summary="Holiday Coverage")
         override = Override(
-            start=datetime(2023, 12, 25),
-            end=datetime(2023, 12, 26),
+            start=datetime(2024, 12, 25),
+            end=datetime(2024, 12, 26),
             user=user_ref,
         )
         override_request = ScheduleOverrideCreate(overrides=[override])
