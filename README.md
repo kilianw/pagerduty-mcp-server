@@ -40,7 +40,7 @@ PagerDuty's official local MCP (Model Context Protocol) server which provides to
 
 5.  **Ensure `uv` is available globally.**
     
-    The MCP server can be ran from different places so you need `uv` to be available globally. To do so, the recommended approach is to use `Homebrew`.
+    The MCP server can be run from different places so you need `uv` to be available globally. To do so, the recommended approach is to use `Homebrew`.
 
     ```shell
     brew install uv
