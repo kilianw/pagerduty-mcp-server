@@ -15,9 +15,7 @@ def list_schedules(query_model: ScheduleQuery) -> ListResponseModel[Schedule]:
     Returns:
         List of schedules matching the query parameters
     """
-    response = paginate(
-        client=get_client(), entity="schedules", params=query_model.to_params()
-    )
+    response = paginate(client=get_client(), entity="schedules", params=query_model.to_params())
     schedules = [Schedule(**schedule) for schedule in response]
     return ListResponseModel[Schedule](response=schedules)
 
@@ -35,9 +33,7 @@ def get_schedule(schedule_id: str) -> Schedule:
     return Schedule.model_validate(response)
 
 
-def create_schedule_override(
-    schedule_id: str, override_request: ScheduleOverrideCreate
-) -> dict | list:
+def create_schedule_override(schedule_id: str, override_request: ScheduleOverrideCreate) -> dict | list:
     """Create an override for a schedule.
 
     Args:
@@ -51,8 +47,7 @@ def create_schedule_override(
         override.start = override.start.isoformat()
         override.end = override.end.isoformat()
 
-    return get_client().rpost(f"/schedules/{schedule_id}/overrides",
-                        json=override_request.model_dump())
+    return get_client().rpost(f"/schedules/{schedule_id}/overrides", json=override_request.model_dump())
 
 
 def list_schedule_users(schedule_id: str) -> ListResponseModel[User]:

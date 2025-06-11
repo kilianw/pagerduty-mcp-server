@@ -1,4 +1,5 @@
 """MCP Tool Tracer - For testing LLM tool calls without execution."""
+
 from collections.abc import Callable
 from typing import Any
 
@@ -35,17 +36,13 @@ class MockedMCPServer:
             tool_name: Name of the tool being called
             parameters: Parameters passed to the tool
         """
-        self.tool_calls.append({
-            "tool_name": tool_name,
-            "parameters": parameters,
-            "call_index": self.current_call_index
-        })
+        self.tool_calls.append(
+            {"tool_name": tool_name, "parameters": parameters, "call_index": self.current_call_index}
+        )
         self.current_call_index += 1
 
     def register_mock_response(
-        self, tool_name: str,
-        parameters_matcher: dict[str, Any] | Callable,
-        response: Any
+        self, tool_name: str, parameters_matcher: dict[str, Any] | Callable, response: Any
     ) -> None:
         """Register a mock response for a specific tool and parameter pattern.
 
@@ -58,10 +55,7 @@ class MockedMCPServer:
         if tool_name not in self.mock_responses:
             self.mock_responses[tool_name] = []
 
-        self.mock_responses[tool_name].append({
-            "matcher": parameters_matcher,
-            "response": response
-        })
+        self.mock_responses[tool_name].append({"matcher": parameters_matcher, "response": response})
 
     def get_mock_response(self, tool_name: str, parameters: dict[str, Any]) -> Any:
         """Get a mock response for a tool call based on registered responses.
@@ -109,6 +103,3 @@ class MockedMCPServer:
             List of calls to the specified tool
         """
         return [call for call in self.tool_calls if call["tool_name"] == tool_name]
-
-
-

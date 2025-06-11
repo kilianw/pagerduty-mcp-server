@@ -79,6 +79,3 @@ def run(*, enable_write_tools: bool = False) -> None:
             add_write_tool(mcp, tool)
 
     mcp.run()
-
-
-
