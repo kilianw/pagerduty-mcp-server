@@ -1,4 +1,3 @@
-
 import logging
 import os
 from contextvars import ContextVar
@@ -16,16 +15,20 @@ load_dotenv()
 API_KEY = os.getenv("PAGERDUTY_USER_API_KEY")
 API_HOST = os.getenv("PAGERDUTY_API_HOST", "https://api.pagerduty.com")
 
+
 class ClientConfig(BaseModel):
     api_key: str
     api_host: str = "https://api.pagerduty.com"
 
-pd_client_config: ContextVar[ClientConfig | None] = ContextVar('pd_client_client', default=None)
+
+pd_client_config: ContextVar[ClientConfig | None] = ContextVar("pd_client_client", default=None)
+
 
 @lru_cache(maxsize=1)
 def _get_cached_client(api_key: str, api_host: str) -> pagerduty.RestApiV2Client:
     """Get a cached PagerDuty client."""
     return create_pd_client(api_key, api_host)
+
 
 def create_pd_client(api_key: str, api_host: str | None = None) -> pagerduty.RestApiV2Client:
     """Get the PagerDuty client."""
@@ -34,6 +37,7 @@ def create_pd_client(api_key: str, api_host: str | None = None) -> pagerduty.Res
         pd_client.url = api_host
 
     return pd_client
+
 
 def get_client() -> pagerduty.RestApiV2Client:
     """Get the PagerDuty client, using cached configuration if available.
@@ -53,5 +57,3 @@ def get_client() -> pagerduty.RestApiV2Client:
 
     logger.info(f"Using cached PagerDuty client with API key: {client_config.api_key}")
     return client
-
-

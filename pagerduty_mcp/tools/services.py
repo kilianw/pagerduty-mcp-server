@@ -29,6 +29,7 @@ def get_service(service_id: str) -> Service:
     response = get_client().rget(f"/services/{service_id}")
     return Service.model_validate(response)
 
+
 # TODO: Add deterministic check for summary field
 def create_service(service_data: ServiceCreate) -> Service:
     """Create a new service.

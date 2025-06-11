@@ -11,15 +11,21 @@ from .mcp_tool_tracer import MockedMCPServer
 class CompetencyTest(ABC):
     """A base class for competency tests that helps define and verify expected tool calls."""
 
-    def __init__(self, query: str, expected_tools: list[dict[str, Any]],
-                 allowed_helper_tools: list[str] | None = None, description: str | None = None,
-                 max_conversation_turns: int = 5, model: str = "gpt-4.1"):
+    def __init__(
+        self,
+        query: str,
+        expected_tools: list[dict[str, Any]],
+        allowed_helper_tools: list[str] | None = None,
+        description: str | None = None,
+        max_conversation_turns: int = 5,
+        model: str = "gpt-4.1",
+    ):
         """Initialize a competency test case.
 
         Args:
             query: The user query to test
             expected_tools: List of expected tool calls with parameters
-            allowed_tools: List of tool names that are allowed to be called
+            allowed_helper_tools: List of tool names that are allowed to be called
             description: Optional description of the test case
             max_conversation_turns: Maximum number of conversation turns allowed
             model: The model to use for the test (default: "gpt-4.1")
@@ -65,16 +71,13 @@ class CompetencyTest(ABC):
                     return False
         return True
 
-    def _verify_tool_called(
-        self, mcp: MockedMCPServer, tool_name: str, expected_params: dict[str, Any]
-    ) -> bool:
+    def _verify_tool_called(self, mcp: MockedMCPServer, tool_name: str, expected_params: dict[str, Any]) -> bool:
         """Verify a tool was called with expected parameters."""
         actual_calls = mcp.get_calls_for_tool(tool_name)
         if not actual_calls:
             return False
 
         return any(self._params_are_compatible(expected_params, call["parameters"]) for call in actual_calls)
-
 
     def _params_are_compatible(self, expected: dict[str, Any], actual: dict[str, Any]) -> bool:
         """Check if actual parameters are compatible with expected ones.
@@ -97,15 +100,17 @@ class CompetencyTest(ABC):
 
         # Missing keys/values (these break compatibility)
         # Storing the details in case we want to log them
-        if 'dictionary_item_removed' in diff:
-            compatibility_issues.extend(diff['dictionary_item_removed'])
-        if 'iterable_item_removed' in diff:
-            compatibility_issues.extend(diff['iterable_item_removed'])
-        if 'values_changed' in diff:
-            compatibility_issues.extend([f"{k}: {v['old_value']} -> {v['new_value']}"
-                                    for k, v in diff['values_changed'].items()])
-        if 'type_changes' in diff:
-            compatibility_issues.extend([f"{k}: {v['old_type']} -> {v['new_type']}"
-                                    for k, v in diff['type_changes'].items()])
+        if "dictionary_item_removed" in diff:
+            compatibility_issues.extend(diff["dictionary_item_removed"])
+        if "iterable_item_removed" in diff:
+            compatibility_issues.extend(diff["iterable_item_removed"])
+        if "values_changed" in diff:
+            compatibility_issues.extend(
+                [f"{k}: {v['old_value']} -> {v['new_value']}" for k, v in diff["values_changed"].items()]
+            )
+        if "type_changes" in diff:
+            compatibility_issues.extend(
+                [f"{k}: {v['old_type']} -> {v['new_type']}" for k, v in diff["type_changes"].items()]
+            )
 
         return len(compatibility_issues) == 0

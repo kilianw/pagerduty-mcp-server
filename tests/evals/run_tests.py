@@ -35,6 +35,7 @@ load_dotenv()
 
 logging.getLogger().setLevel(logging.WARNING)
 
+
 class TestResult(BaseModel):
     """Model for test results."""
 
@@ -75,7 +76,6 @@ class TestAgent:
         self.results = []
         self.mocked_mcp = MockedMCPServer()
         self.llm = self._initialize_llm(llm_type)
-
 
     def _initialize_llm(self, llm_type: str) -> OpenAI:
         """Initialize the specified LLM client.
@@ -177,7 +177,7 @@ class TestAgent:
                 response = self.llm.chat.completions.create(
                     model=test_case.model,  # TODO: Abstract model providers so we can support Claude etc ..
                     messages=messages,
-                    tools=self._get_available_tools(), # type: ignore TODO: fix type hint
+                    tools=self._get_available_tools(),  # type: ignore TODO: fix type hint
                     tool_choice="auto",
                 )
 
