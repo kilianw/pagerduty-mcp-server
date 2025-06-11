@@ -107,6 +107,7 @@ where = ["."]
 
 [dependency-groups]
 dev = [
+    "coverage>=7.8.2",
     "deepdiff>=8.5.0",
     "ipykernel>=6.29.5",
     "openai>=1.84.0",
