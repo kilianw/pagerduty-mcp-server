@@ -19,7 +19,7 @@ class CompetencyTest(ABC):
         Args:
             query: The user query to test
             expected_tools: List of expected tool calls with parameters
-            allowed_tools: List of tool names that are allowed to be called
+            allowed_helper_tools: List of tool names that are allowed to be called
             description: Optional description of the test case
             max_conversation_turns: Maximum number of conversation turns allowed
             model: The model to use for the test (default: "gpt-4.1")
