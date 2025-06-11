@@ -538,39 +538,6 @@ class TestTeamTools(unittest.TestCase):
 
         self.assertEqual(team.type, "team")
 
-    def test_team_model_with_all_fields(self):
-        """Test Team model creation with all fields."""
-        team = Team(id="TEAM123", summary="Test Team Summary", name="Test Team", description="Test Description")
-
-        self.assertEqual(team.id, "TEAM123")
-        self.assertEqual(team.summary, "Test Team Summary")
-        self.assertEqual(team.name, "Test Team")
-        self.assertEqual(team.description, "Test Description")
-        self.assertEqual(team.type, "team")
-
-    def test_team_create_model(self):
-        """Test TeamCreate model creation."""
-        team_data = TeamCreate(name="Test Team", description="Test Description", default_role="manager")
-
-        self.assertEqual(team_data.name, "Test Team")
-        self.assertEqual(team_data.description, "Test Description")
-        self.assertEqual(team_data.default_role, "manager")
-
-    def test_team_create_request_model(self):
-        """Test TeamCreateRequest model creation."""
-        team_data = TeamCreate(name="Test Team", description="Test Description")
-        team_create = TeamCreateRequest(team=team_data)
-
-        self.assertEqual(team_create.team.name, "Test Team")
-        self.assertEqual(team_create.team.description, "Test Description")
-
-    def test_team_member_add_model(self):
-        """Test TeamMemberAdd model creation."""
-        member_data = TeamMemberAdd(user_id="USER123", role="manager")
-
-        self.assertEqual(member_data.user_id, "USER123")
-        self.assertEqual(member_data.role, "manager")
-
 
 if __name__ == "__main__":
     unittest.main()

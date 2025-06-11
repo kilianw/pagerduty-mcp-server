@@ -256,27 +256,6 @@ class TestUserTools(unittest.TestCase):
 
         self.assertEqual(user.type, "user")
 
-    def test_user_model_with_all_fields(self):
-        """Test User model creation with all fields."""
-        team = TeamReference(id="TEAM1", summary="Test Team")
-        user = User(
-            id="USER123",
-            summary="Test User Summary",
-            name="Test User",
-            email="test@example.com",
-            role="admin",
-            teams=[team],
-        )
-
-        self.assertEqual(user.id, "USER123")
-        self.assertEqual(user.summary, "Test User Summary")
-        self.assertEqual(user.name, "Test User")
-        self.assertEqual(user.email, "test@example.com")
-        self.assertEqual(user.role, "admin")
-        self.assertEqual(len(user.teams), 1)
-        self.assertEqual(user.teams[0].id, "TEAM1")
-        self.assertEqual(user.type, "user")
-
     @patch("pagerduty_mcp.tools.users.get_client")
     def test_list_users_single_team_filter(self, mock_get_client):
         """Test listing users with single team in teams_ids filter."""

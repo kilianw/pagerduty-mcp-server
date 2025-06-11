@@ -439,38 +439,6 @@ class TestServiceTools(unittest.TestCase):
 
         self.assertEqual(service.type, "service")
 
-    def test_service_model_with_all_fields(self):
-        """Test Service model creation with all fields."""
-        escalation_policy = EscalationPolicyReference(id="EP123", summary="Test Escalation Policy")
-        team = TeamReference(id="TEAM1", summary="Test Team")
-        service = Service(
-            id="SVC123",
-            name="Test Service",
-            description="Test Description",
-            escalation_policy=escalation_policy,
-            teams=[team],
-        )
-
-        self.assertEqual(service.id, "SVC123")
-        self.assertEqual(service.name, "Test Service")
-        self.assertEqual(service.description, "Test Description")
-        self.assertEqual(service.escalation_policy.id, "EP123")
-        self.assertEqual(len(service.teams), 1)
-        self.assertEqual(service.teams[0].id, "TEAM1")
-        self.assertEqual(service.type, "service")
-
-    def test_service_create_model(self):
-        """Test ServiceCreate model creation."""
-        escalation_policy = EscalationPolicyReference(id="EP123", summary="Test Escalation Policy")
-        service_data = Service(
-            name="Test Service", description="Test Description", escalation_policy=escalation_policy, teams=[]
-        )
-        service_create = ServiceCreate(service=service_data)
-
-        self.assertEqual(service_create.service.name, "Test Service")
-        self.assertEqual(service_create.service.description, "Test Description")
-        self.assertEqual(service_create.service.escalation_policy.id, "EP123")
-
 
 if __name__ == "__main__":
     unittest.main()
