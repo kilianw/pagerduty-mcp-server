@@ -91,10 +91,6 @@ Discuss review comments and iterate until you get at least one "Approve". When i
 
 Once approved and tested, one of the maintainers will squash-merge to `next` and finally `main` and will use your PR title/description as the commit message. Your name will be also added to the Release Notes of the next release.
 
-## Legal notice
-
-Please do not remove the legal notice at the end of the PR message. This is a requirement for any pull request to be reviewed & accepted into the project.
-
 ## Thank you!
 
 PagerDuty MCP Server is an open source project and therefore needs the community to support it. We encourage you to help us out!
