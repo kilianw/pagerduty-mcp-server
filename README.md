@@ -99,7 +99,7 @@ You can configure this MCP server directly within Visual Studio Code's `settings
     From the project root path run `asdf reshim`.  
     This may require sourcing `asdf.sh` in your shell profile (e.g., `.bashrc`, `.zshrc`).
 
-### Trying it in VS Code Chat (Agent)
+#### Trying it in VS Code Chat (Agent)
 
 1.  Ensure MCP is enabled in VS Code settings (Features > Chat > "Mcp: Enabled").
 2.  Configure the server as described above.
@@ -107,6 +107,53 @@ You can configure this MCP server directly within Visual Studio Code's `settings
 4.  Make sure `Agent` mode is selected. In the Chat view, you can enable or disable specific tools by clicking the 🛠️ icon.
 5.  Enter a command such as `Show me the latest incident` to interact with your PagerDuty account through the MCP server.
 6.  You can start, stop, and manage your MCP servers using the command palette (`Cmd+Shift+P`/`Ctrl+Shift+P`) and searching for `MCP: List Servers`. Ensure the server is running before sending commands. You can also try to restart the server if you encounter any issues.
+
+### Claude Desktop Integration
+
+You can configure this MCP server to work with Claude Desktop by adding it to Claude's configuration file.
+
+1.  **Locate your Claude Desktop configuration file:**
+    -   **macOS:** `~/Library/Application Support/Claude/claude_desktop_config.json`
+    -   **Windows:** `%APPDATA%\Claude\claude_desktop_config.json`
+
+2.  **Create or edit the configuration file** and add the following configuration:
+
+    ```json
+    {
+      "mcpServers": {
+        "pagerduty-mcp": {
+          "command": "uv",
+          "args": [
+            "run",
+            "--directory",
+            "/path/to/your/mcp-server-directory",
+            "python",
+            "-m",
+            "pagerduty_mcp",
+            "--enable-write-tools"
+          ],
+          "env": {
+            "PAGERDUTY_USER_API_KEY": "your-pagerduty-api-key-here",
+            "PAGERDUTY_API_HOST": "https://api.pagerduty.com"
+          }
+        }
+      }
+    }
+    ```
+
+3.  **Replace the placeholder values:**
+    -   Replace `/path/to/your/mcp-server-directory` with the full path to the directory where you cloned the MCP server (e.g., `/Users/yourname/code/pagerduty-mcp-server`)
+    -   Replace `your-pagerduty-api-key-here` with your actual PagerDuty User API Token
+    -   If your PagerDuty account is located in the EU, update the API host to `https://api.eu.pagerduty.com`
+
+4.  **Restart Claude Desktop** completely for the changes to take effect.
+
+5.  **Test the integration** by starting a conversation with Claude and asking something like "Show me my latest PagerDuty incidents" to verify the MCP server is working.
+
+    > **Security Note:** Unlike VS Code's secure input prompts, Claude Desktop requires you to store your API key directly in the configuration file. Ensure this file has appropriate permissions (readable only by your user account) and consider the security implications of storing credentials in plain text.
+
+    > **Note:** The `--directory` flag ensures `uv` runs in your project root, regardless of Claude Desktop's working directory. Make sure `uv` is available globally (installed via Homebrew as described in the setup steps) and that your system can resolve the correct Python version through `asdf` shims.
+
 
 ## Available Tools and Resources
 
