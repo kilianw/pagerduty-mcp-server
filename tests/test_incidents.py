@@ -12,6 +12,7 @@ from pagerduty_mcp.models import (
     IncidentCreate,
     IncidentCreateRequest,
     IncidentManageRequest,
+    IncidentNote,
     IncidentQuery,
     IncidentResponderRequest,
     IncidentResponderRequestResponse,
@@ -27,6 +28,7 @@ from pagerduty_mcp.tools.incidents import (
     _generate_manage_request,
     _reassign_incident,
     _update_manage_request,
+    add_note_to_incident,
     add_responders,
     create_incident,
     get_incident,
@@ -457,6 +459,38 @@ class TestIncidentTools(unittest.TestCase):
         self.assertIsInstance(result, str)
         self.assertIn("Unexpected response format", result)
 
+    @patch("pagerduty_mcp.tools.incidents.get_client")
+    def test_add_note_to_incident_success(self, mock_get_client):
+        """Test successfully adding a note to an incident."""
+        # Setup mock response
+        mock_response = {
+            "id": "PNOTE123",
+            "content": "This is a test note",
+            "created_at": "2023-01-01T10:00:00Z",
+            "user": {
+                "id": "PUSER123",
+                "summary": "Test User"
+            }
+        }
+
+        mock_client = Mock()
+        mock_client.rpost.return_value = mock_response
+        mock_get_client.return_value = mock_client
+
+        # Test
+        result = add_note_to_incident("PINC123", "This is a test note")
+
+        # Assertions
+        self.assertIsInstance(result, IncidentNote)
+        self.assertEqual(result.id, "PNOTE123")
+        self.assertEqual(result.content, "This is a test note")
+        self.assertEqual(result.user.id, "PUSER123")
+
+        # Verify API call
+        mock_client.rpost.assert_called_once_with(
+            "/incidents/PINC123/notes",
+            json={"note": {"content": "This is a test note"}}
+        )
 
 if __name__ == "__main__":
     unittest.main()
