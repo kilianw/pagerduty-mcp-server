@@ -1,1 +1,1 @@
-DIST_NAME = "pagerduty-mcp"
+DIST_NAME = "pagerduty-mcp-server"

@@ -17,6 +17,7 @@
 - [ ] Changes have been tested
 - [ ] Changes are documented
 - [ ] Changes generate *no new warnings*
+- [ ] PR title follows [conventional commit semantics](https://www.conventionalcommits.org/en/v1.0.0/)
 
 If this is a breaking change 👇
 
