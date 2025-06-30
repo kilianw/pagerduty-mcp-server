@@ -51,7 +51,7 @@ PagerDuty's official local MCP (Model Context Protocol) server which provides to
 
 You can configure this MCP server directly within Visual Studio Code's `settings.json` file, allowing VS Code to manage the server lifecycle.
 
-1.  Open VS Code settings (File > Preferences > Settings).
+1.  Open VS Code settings (File > Preferences > Settings, or `Cmd+,` on Mac, or `Ctrl+,` on Windows/Linux).
 2.  Search for "mcp" and ensure "Mcp: Enabled" is checked under Features > Chat.
 3.  Click "Edit in settings.json" under "Mcp > Discovery: Servers".
 4.  Add the following configuration:
