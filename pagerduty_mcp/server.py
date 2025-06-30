@@ -27,6 +27,13 @@ live environment. Always confirm with the user before using any tool marked as d
 
 @asynccontextmanager
 async def app_lifespan(server: FastMCP) -> AsyncIterator[MCPContext]:
+    """Lifespan context manager for the MCP server.
+
+    Args:
+        server: The MCP server instance
+    Returns:
+        An asynchronous iterator yielding the MCP context.
+    """
     try:
         yield get_mcp_context(client=get_client())
     finally:

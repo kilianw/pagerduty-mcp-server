@@ -1,13 +1,12 @@
 [project]
 name = "pagerduty-mcp-server"
 version = "0.0.4"
-description = "Add your description here"
+description = "Pagerduty MCP Server"
 readme = "README.md"
 requires-python = ">=3.12,<3.13"
 dependencies = [
     "mcp[cli]>=1.8.0",
     "pagerduty>=2.0.0",
-    "ruff>=0.11.10",
 ]
 
 [tool.pyright]
@@ -31,15 +30,11 @@ extend-exclude = [
     "site-packages",
 ]
 
-# if used and desired add this to the above extend include
-# extend-include = ["*.ipynb"]
-
 line-length = 120
 
 [tool.ruff.lint]
 # see https://docs.astral.sh/ruff/rules/ for information about rules
 select = [
-    # These are standard rules / align with PagerDuty python standards
     "E",   # pycodestyle - Error
     "F",   # pyflakes
     "B",   # flake8-bugbear
@@ -47,9 +42,6 @@ select = [
     "SIM", # flake8-simplify
     "I",   # isort
     "D",   # docstrings
-    # These are less common rules but  there is a strong case for using them
-    # There might be some duplication across rules but they should not be
-    # contradictory
     "W",     # pycodestyle - Warning
     "C4",    # flake8-comprehensions
     "ASYNC", # flake8-async
@@ -61,11 +53,6 @@ select = [
     "FBT",   # flake8-boolean-trap
     "ISC",   # flake8-implicit-string-concatenation
     "PIE",   # flake8-pie
-    # These rules are optional and should be applied on a team-by-team basis
-    # "PT" # flake8-pytest-style - if using pytest
-    # "S", # flake8-bandit - this duplicates a lot of the work in Snyk
-    # "PD", # pandas-vet - quite opinionated, not in a bad way but takes some getting used to.  Only applicable to DS/MLE
-    # "N"  # pep8-naming - enforces PEP8 naming, can be overly strict
 ]
 
 # The following rule has been specifically rejected
@@ -77,7 +64,6 @@ ignore = [
     "D100",
     "D101",
     "D102",
-    "D103",
     "D104",
     "D105",
     "D106",
@@ -95,7 +81,7 @@ dummy-variable-rgx = "^(_+|(_+[a-zA-Z0-9_]*[a-zA-Z0-9]+?))$"
 "**/tests/*" = ['S101'] # allow use of assert in tests
 
 [tool.ruff.lint.pydocstyle]
-convention = "google"        # see python standards for discussion on docstyle
+convention = "google"
 ignore-var-parameters = true
 
 [build-system]
@@ -113,4 +99,5 @@ dev = [
     "openai>=1.84.0",
     "pyright>=1.1.401",
     "pytest>=8.3.5",
+    "ruff>=0.12.1",
 ]
