@@ -8,6 +8,7 @@ dependencies = [
     "mcp[cli]>=1.8.0",
     "pagerduty>=2.0.0",
     "ruff>=0.11.10",
+    "typer>=0.16.0",
 ]
 
 [tool.pyright]
