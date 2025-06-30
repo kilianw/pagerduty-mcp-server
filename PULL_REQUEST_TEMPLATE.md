@@ -9,6 +9,7 @@
 - [ ] New feature (non-breaking change which adds functionality)
 - [ ] Fix (non-breaking change which fixes an issue)
 - [ ] Breaking change (fix or feature that would cause existing functionality to not work as expected)
+- [ ] Documentation only
 
 ### Checklist
 
@@ -16,7 +17,6 @@
 - [ ] Changes have been tested
 - [ ] Changes are documented
 - [ ] Changes generate *no new warnings*
-- [ ] PR title follows [conventional commit semantics](https://www.conventionalcommits.org/en/v1.0.0/)
 
 If this is a breaking change 👇
 

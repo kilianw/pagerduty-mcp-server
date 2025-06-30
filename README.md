@@ -40,21 +40,18 @@ PagerDuty's official local MCP (Model Context Protocol) server which provides to
 
 5.  **Ensure `uv` is available globally.**
     
-    The MCP server can be run from different places so you need `uv` to be available globally. To do so, the recommended approach is to use `Homebrew`.
+    The MCP server can be run from different places so you need `uv` to be available globally. To do so, follow the [official documentation](https://docs.astral.sh/uv/getting-started/installation/).
 
-    ```shell
-    brew install uv
-    ```
 
     > **Tip:** You may need to restart your terminal and/or VS Code for the changes to take effect.
 
 ## Using with MCP Clients
 
-### VS Code Integration (`settings.json`)
+### VS Code Integration
 
 You can configure this MCP server directly within Visual Studio Code's `settings.json` file, allowing VS Code to manage the server lifecycle.
 
-1.  Open VS Code settings (File > Preferences > Settings or `Cmd+,`/`Ctrl+,`).
+1.  Open VS Code settings (File > Preferences > Settings, or `Cmd+,` on Mac, or `Ctrl+,` on Windows/Linux).
 2.  Search for "mcp" and ensure "Mcp: Enabled" is checked under Features > Chat.
 3.  Click "Edit in settings.json" under "Mcp > Discovery: Servers".
 4.  Add the following configuration:
