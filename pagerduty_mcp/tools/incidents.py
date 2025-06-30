@@ -8,6 +8,7 @@ from pagerduty_mcp.models import (
     Incident,
     IncidentCreateRequest,
     IncidentManageRequest,
+    IncidentNote,
     IncidentQuery,
     IncidentResponderRequest,
     IncidentResponderRequestResponse,
@@ -175,3 +176,19 @@ def add_responders(
         # If the response is a dict with a responder_request key, return the model
         return IncidentResponderRequestResponse.model_validate(response["responder_request"])
     return "Unexpected response format: " + str(response)
+
+
+def add_note_to_incident(incident_id: str, note: str) -> IncidentNote:
+    """Add a note to an incident.
+
+    Args:
+        incident_id: The ID of the incident to add a note to
+        note: The note text to be added
+    Returns:
+        The updated incident with the new note
+    """
+    response = get_client().rpost(
+        f"/incidents/{incident_id}/notes",
+        json={"note": {"content": note}},
+    )
+    return IncidentNote.model_validate(response)

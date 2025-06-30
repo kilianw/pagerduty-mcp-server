@@ -7,6 +7,7 @@ from .escalation_policies import (
     list_escalation_policies,
 )
 from .incidents import (
+    add_note_to_incident,
     add_responders,
     create_incident,
     get_incident,
@@ -70,6 +71,7 @@ write_tools = [
     create_incident,
     manage_incidents,
     add_responders,
+    add_note_to_incident,
     # Services
     create_service,
     update_service,
