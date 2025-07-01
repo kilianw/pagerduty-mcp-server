@@ -162,6 +162,7 @@ This section describes the tools provided by the PagerDuty MCP server. They are 
 |------------------------|--------------------|-----------------------------------------------------|-----------|
 | list_escalation_policies | Escalation Policy  | Lists escalation policies                           | ✅         |
 | get_escalation_policy    | Escalation Policy  | Retrieves a specific escalation policy              | ✅         |
+| add_note_to_incident     | Incidents          | Adds note to an incident                            | ❌         |
 | add_responders           | Incidents          | Adds responders to an incident                      | ❌         |
 | create_incident          | Incidents          | Creates a new incident                              | ❌         |
 | get_incident             | Incidents          | Retrieves a specific incident                       | ✅         |
