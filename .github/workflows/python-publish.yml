@@ -80,7 +80,7 @@ jobs:
           path: dist/
 
       - name: Publish release distributions to PyPi
-        run: uv publish --publish-url https://pypi.org/legacy/ --token ${{ secrets.PYPI_TOKEN_PROD }}
+        run: uv publish --publish-url https://upload.pypi.org/legacy/ --token ${{ secrets.PYPI_TOKEN_PROD }}
 
   pypi-publish-testing:
     if: ${{ inputs.environment == 'Testing' }}
