@@ -550,7 +550,7 @@ wheels = [
 ]
 
 [[package]]
-name = "pagerduty-mcp-server"
+name = "pagerduty-mcp"
 version = "0.1.1"
 source = { editable = "." }
 dependencies = [

@@ -139,7 +139,7 @@ You can configure this MCP server to work with Claude Desktop by adding it to Cl
     ```
 
 3.  **Replace the placeholder values:**
-    -   Replace `/path/to/your/mcp-server-directory` with the full path to the directory where you cloned the MCP server (e.g., `/Users/yourname/code/pagerduty-mcp-server`)
+    -   Replace `/path/to/your/mcp-server-directory` with the full path to the directory where you cloned the MCP server (e.g., `/Users/yourname/code/pagerduty-mcp`)
     -   Replace `your-pagerduty-api-key-here` with your actual PagerDuty User API Token
     -   If your PagerDuty account is located in the EU, update the API host to `https://api.eu.pagerduty.com`
 
