@@ -10,6 +10,9 @@ dependencies = [
     "typer>=0.16.0",
 ]
 
+[project.scripts]
+pagerduty-mcp = "pagerduty_mcp.__main__:main"
+
 [tool.pyright]
 include = ["app"]
 exclude = []
