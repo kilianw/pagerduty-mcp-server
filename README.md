@@ -1,6 +1,6 @@
 # PagerDuty MCP Server
 
-PagerDuty's official local MCP (Model Context Protocol) server which provides tools to interact with your PagerDuty account, allowing you to manage incidents, services, schedules, and more directly from your MCP-enabled client.
+PagerDuty's **official** local MCP (Model Context Protocol) server which provides tools to interact with your PagerDuty account, allowing you to manage incidents, services, schedules, and more directly from your MCP-enabled client.
 
 ## Prerequisites
 
