@@ -1,5 +1,8 @@
 # PagerDuty's official MCP Server
 
+[![Install MCP Server](https://cursor.com/deeplink/mcp-install-dark.svg)](https://cursor.com/install-mcp?name=pagerduty-mcp&config=ewogICAgICAidHlwZSI6ICJzdGRpbyIsCiAgICAgICJjb21tYW5kIjogInV2eCIsCiAgICAgICJhcmdzIjogWwogICAgICAgICJwYWdlcmR1dHktbWNwIiwKICAgICAgICAiLS1lbmFibGUtd3JpdGUtdG9vbHMiCiAgICAgIF0sCiAgICAgICJlbnYiOiB7CiAgICAgICAgIlBBR0VSRFVUWV9VU0VSX0FQSV9LRVkiOiAiIiwKICAgICAgICAiUEFHRVJEVVRZX0FQSV9IT1NUIjogImh0dHBzOi8vYXBpLnBhZ2VyZHV0eS5jb20iCiAgICAgIH0KICAgIH0=)
+[![Add to Visual Studio Code](https://img.shields.io/badge/VS_Code-Add%20MCP%20Server-0098FF?style=flat-square&logo=visualstudiocode&logoColor=white)](vscode:mcp/install?%7B%22name%22%3A%22pagerduty-mcp%22%2C%22type%22%3A%20%22stdio%22%2C%22command%22%3A%20%22uvx%22%2C%22args%22%3A%20%5B%22pagerduty-mcp%22%2C%22--enable-write-tools%22%5D%2C%22env%22%3A%20%7B%22PAGERDUTY_USER_API_KEY%22%3A%22%24%7Binput%3Apagerduty-api-key%7D%22%2C%22PAGERDUTY_API_HOST%22%3A%22https%3A%2F%2Fapi.pagerduty.com%22%7D%7D) 
+
 PagerDuty's local MCP (Model Context Protocol) server which provides tools to interact with your PagerDuty account, allowing you to manage incidents, services, schedules, and more directly from your MCP-enabled client.
 
 ## Prerequisites
