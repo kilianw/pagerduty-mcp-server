@@ -1,6 +1,7 @@
 import logging
 from collections.abc import AsyncIterator, Callable
 from contextlib import asynccontextmanager
+from typing import Literal
 
 import typer
 from mcp.server.fastmcp import FastMCP
@@ -67,7 +68,7 @@ def add_write_tool(mcp_instance: FastMCP, tool: Callable) -> None:
 
 
 @app.command()
-def run(*, enable_write_tools: bool = False) -> None:
+def run(*, enable_write_tools: bool = False, transport: str = "stdio", host: str = "0.0.0.0", port: int = 6565) -> None:
     """Run the MCP server with the specified configuration.
 
     Args:
@@ -78,11 +79,13 @@ def run(*, enable_write_tools: bool = False) -> None:
         lifespan=app_lifespan,
         instructions=MCP_SERVER_INSTRUCTIONS,
     )
+
     for tool in read_tools:
         add_read_only_tool(mcp, tool)
 
     if enable_write_tools:
         for tool in write_tools:
             add_write_tool(mcp, tool)
-
-    mcp.run()
+    mcp.settings.host = host
+    mcp.settings.port = port
+    mcp.run(transport=transport)
